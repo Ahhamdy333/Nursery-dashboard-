@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+[nursery_GOOGLE_DRIVE hope.html](https://github.com/user-attachments/files/26856503/nursery_GOOGLE_DRIVE.hope.html)<!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
@@ -469,21 +469,44 @@ header::after {
     background: linear-gradient(135deg, #1a3d0f 0%, #2d5016 25%, #3a6b1f 50%, #4a7c2c 75%, #5a8c3c 100%);
     color: white;
     padding: 40px;
-    border-radius: 25px;
+    border-radius: 20px;
     text-align: center;
     box-shadow: 
-        0 12px 35px rgba(45, 80, 22, 0.35),
-        inset 0 2px 0 rgba(255,255,255,0.25),
-        inset 0 -2px 0 rgba(0,0,0,0.2);
-    cursor: pointer;
-    transition: all 0.5s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+        0 10px 30px rgba(45, 80, 22, 0.3),
+        inset 0 1px 0 rgba(255,255,255,0.2),
+        inset 0 -1px 0 rgba(0,0,0,0.15);
     position: relative;
     overflow: visible;
+    border: 1px solid rgba(255,255,255,0.1);
 }
 
-.stat-card:hover {
-    transform: translateY(-12px) scale(1.05);
-    box-shadow: 0 18px 50px rgba(45, 80, 22, 0.45);
+/* Decorative corner accents */
+.stat-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 40px;
+    height: 40px;
+    border-top: 3px solid rgba(212, 175, 55, 0.5);
+    border-left: 3px solid rgba(212, 175, 55, 0.5);
+    border-radius: 20px 0 0 0;
+}
+
+.stat-card::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    right: 0;
+    width: 40px;
+    height: 40px;
+    border-bottom: 3px solid rgba(212, 175, 55, 0.5);
+    border-right: 3px solid rgba(212, 175, 55, 0.5);
+    border-radius: 0 0 20px 0;
+}
+
+.stat-card svg {
+    opacity: 0.25;
 }
 
 .stat-number {
@@ -494,6 +517,14 @@ header::after {
     text-shadow: 3px 3px 10px rgba(0,0,0,0.4);
     position: relative;
     z-index: 1;
+    animation: pulse 2s ease-in-out infinite;
+}
+
+.stat-card:hover .stat-number {
+    animation: bounce 0.6s ease-in-out;
+    text-shadow: 
+        3px 3px 10px rgba(0,0,0,0.4),
+        0 0 20px rgba(212, 175, 55, 0.6);
 }
 
 .stat-label {
@@ -1349,9 +1380,14 @@ const QR_LINKS = {"OF": "https://drive.google.com/file/d/1Mx5FkekfU6MVlfaXy8pMvQ
 // ==========================================
 // 🔧 GOOGLE APPS SCRIPT CONFIGURATION
 // ==========================================
-const SCRIPT_URL = 'https://script.google.com/macros/s/AKfycbzahuvYjnvxBWR1pVGPotJONoj1L6tGbsi4806pcwg2Ts2GWSfFkyF-fEKhda6RzWUcag/exec';
+// Google Apps Script Web App URL - Updated: 2026-04-18
+const SCRIPT_URL =
+'https://script.google.com/macros/s/AKfycbzMcoOQkOBXFYdKdkK-SGim_iBJ9OpKqZRM_lhlvld94lRvw9n0FssG-Oi734l9P0S1XQ/exec';
 
-// Use Google Sheets for data storage
+// Google Sheet URL: https://docs.google.com/spreadsheets/d/1tHgf7BBLRRB1xhlnZkT4P_5GjyUoXQYOiOcc04OIhFE/edit
+// Deployment created: April 18, 2026
+
+// Use Google Sheets for data storage (set to true to use localStorage instead)
 const USE_LOCAL_STORAGE = false;
 
 // ==========================================
@@ -1517,7 +1553,7 @@ const TEXTS = {
         subtitle: "Abo Shalan Village, Kafr El-Sheikh, Egypt",
         projectName: "Promoting Climate Smart Agriculture and Agricultural Biodiversity for Enhancing the Adaptive Capacity of Vulnerable Rural Communities in Old and New Lands of Upper and Lower Egypt",
         tabs: {overview: "Overview", map: "Nursery Map", dead: "Dead Offshoots", farmers: "Farmers", codes: "Codes", story: "Nursery Story", media: "Media", admin: "Admin"},
-        stats: {total: "Total Offshoots", alive: "Alive Offshoots", dead: "Dead Offshoots", farmers: "Farmers", varieties: "Varieties"},
+        stats: {total: "Total Offshoots", alive: "Alive Offshoots", dead: "Dead Offshoots", farmers: "Farmers", varieties: "Varieties", survival: "Survival Rate"},
         varieties: {
             BA: {name: "Bent Eisha", desc: "Bent Eisha is the most abundant variety in the nursery, representing nearly 50% of all offshoots. This variety is renowned for its excellent taste, high sugar content, and commercial value. Bent Eisha palms are well-adapted to the northern Delta environment and produce dates that are suitable for both fresh consumption and processing. The variety's resistance to common pests and diseases makes it particularly valuable for farmers."},
             HY: {name: "Hayani", desc: "Hayani is one of the most prized soft date varieties in Egypt, particularly favored in the Nile Delta region. Known for its sweet taste and soft texture when ripe, Hayani dates are consumed fresh and are highly valued in local markets. The variety demonstrates good adaptability to the coastal climate of Kafr Elsheikh and Behira, making it an ideal candidate for sustainable cultivation under changing climatic conditions."},
@@ -1549,7 +1585,7 @@ const TEXTS = {
         subtitle: "قرية أبو شعلان، كفر الشيخ، مصر",
         projectName: "تعزيز الزراعة الذكية مناخياً والتنوع البيولوجي الزراعي لتعزيز القدرة التكيفية للمجتمعات الريفية الضعيفة في الأراضي القديمة والجديدة في صعيد وشمال مصر",
         tabs: {overview: "نظرة عامة", map: "خريطة المشتل", dead: "الفسائل الميتة", farmers: "المزارعون", codes: "الأكواد", story: "قصة المشتل", media: "وسائط", admin: "الإدارة"},
-        stats: {total: "إجمالي الفسائل", alive: "الفسائل الحية", dead: "الفسائل الميتة", farmers: "المزارعون", varieties: "الأصناف"},
+        stats: {total: "إجمالي الفسائل", alive: "الفسائل الحية", dead: "الفسائل الميتة", farmers: "المزارعون", varieties: "الأصناف", survival: "معدل البقاء"},
         varieties: {
             BA: {name: "بنت عيشة", desc: "بنت عيشة هو الصنف الأكثر وفرة في المشتل، حيث يمثل ما يقرب من 50% من جميع الفسائل. يشتهر هذا الصنف بمذاقه الممتاز ومحتواه العالي من السكر وقيمته التجارية. نخيل بنت عيشة متأقلم بشكل جيد مع بيئة شمال الدلتا وينتج تموراً مناسبة للاستهلاك الطازج والمعالجة. تجعل مقاومة الصنف للآفات والأمراض الشائعة ذا قيمة خاصة للمزارعين."},
             HY: {name: "حياني", desc: "حياني هو واحد من أكثر أصناف التمور الطرية قيمة في مصر، ويحظى بتفضيل خاص في منطقة دلتا النيل. يُعرف بمذاقه الحلو وقوامه الطري عند النضج، ويتم استهلاك تمور حياني طازجة وتحظى بتقدير كبير في الأسواق المحلية. يُظهر الصنف قدرة جيدة على التكيف مع المناخ الساحلي لكفر الشيخ والبحيرة، مما يجعله مرشحاً مثالياً للزراعة المستدامة في ظل الظروف المناخية المتغيرة."},
@@ -1637,23 +1673,121 @@ function renderOverview() {
     const totalOffshoots = ALL_CODES.length;
     const deadCount = allDead.length;
     const aliveCount = totalOffshoots - deadCount;
+    const survivalRate = totalOffshoots > 0 ? ((aliveCount / totalOffshoots) * 100).toFixed(1) : 0;
     const varieties = {};
     ALL_CODES.forEach(code => {
         varieties[code.variety] = (varieties[code.variety] || 0) + 1;
     });
     
-    // Decorative SVG sketches
-    const sketchCircle = `<svg style="position:absolute;top:-10px;right:-10px;width:60px;height:60px;opacity:0.3;pointer-events:none;" viewBox="0 0 100 100"><circle cx="50" cy="50" r="40" fill="none" stroke="#d4af37" stroke-width="3" stroke-dasharray="5,5" transform="rotate(-15 50 50)"/></svg>`;
-    const sketchStar = `<svg style="position:absolute;top:15px;left:15px;width:40px;height:40px;opacity:0.35;pointer-events:none;" viewBox="0 0 100 100"><path d="M50,15 L60,40 L85,45 L65,65 L70,90 L50,75 L30,90 L35,65 L15,45 L40,40 Z" fill="none" stroke="#d4af37" stroke-width="3"/></svg>`;
-    const sketchCheck = `<svg style="position:absolute;top:15px;right:15px;width:35px;height:35px;opacity:0.4;pointer-events:none;" viewBox="0 0 100 100"><path d="M20,50 L40,70 L80,30" fill="none" stroke="#6dbf6d" stroke-width="5" stroke-linecap="round"/></svg>`;
-    const sketchX = `<svg style="position:absolute;top:15px;right:15px;width:35px;height:35px;opacity:0.4;pointer-events:none;" viewBox="0 0 100 100"><path d="M30,30 L70,70 M70,30 L30,70" fill="none" stroke="#c62828" stroke-width="5" stroke-linecap="round"/></svg>`;
-    const sketchArrow = `<svg style="position:absolute;bottom:15px;left:15px;width:45px;height:45px;opacity:0.3;pointer-events:none;" viewBox="0 0 100 100"><path d="M20,80 L80,20 M60,20 L80,20 L80,40" fill="none" stroke="#d4af37" stroke-width="4" stroke-linecap="round"/></svg>`;
+    // Detailed artistic SVG illustrations representing each stat
+    const palmTreeIllustration = `<svg style="position:absolute;top:5px;right:5px;width:90px;height:90px;opacity:0.18;" viewBox="0 0 120 120">
+        <!-- Palm trunk -->
+        <path d="M60,90 Q58,70 60,50 Q62,30 60,10" stroke="#8B4513" stroke-width="4" fill="none"/>
+        <!-- Palm leaves -->
+        <path d="M60,15 Q40,10 25,8 M60,15 Q50,8 40,5 M60,15 Q70,8 80,5 M60,15 Q80,10 95,8" stroke="#2d5016" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M60,20 Q35,18 20,20 M60,20 Q85,18 100,20" stroke="#4a7c2c" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Dates/offshoots -->
+        <circle cx="45" cy="30" r="3" fill="#d4af37"/>
+        <circle cx="55" cy="28" r="3" fill="#d4af37"/>
+        <circle cx="65" cy="28" r="3" fill="#d4af37"/>
+        <circle cx="75" cy="30" r="3" fill="#d4af37"/>
+        <!-- Ground -->
+        <ellipse cx="60" cy="95" rx="15" ry="4" fill="#8B4513" opacity="0.4"/>
+    </svg>`;
+    
+    const livingPalmIllustration = `<svg style="position:absolute;top:5px;right:5px;width:90px;height:90px;opacity:0.18;" viewBox="0 0 120 120">
+        <!-- Healthy palm trunk -->
+        <path d="M60,90 Q58,65 60,40 Q62,20 60,10" stroke="#8B4513" stroke-width="4.5" fill="none"/>
+        <!-- Vibrant green leaves -->
+        <path d="M60,12 Q35,8 18,6 M60,12 Q45,6 30,4 M60,12 Q75,6 90,4 M60,12 Q85,8 102,6" stroke="#2d5016" stroke-width="3.5" fill="none" stroke-linecap="round"/>
+        <path d="M60,18 Q32,15 15,18 M60,18 Q88,15 105,18" stroke="#4a7c2c" stroke-width="3" fill="none" stroke-linecap="round"/>
+        <path d="M60,24 Q38,22 25,25 M60,24 Q82,22 95,25" stroke="#6dbf6d" stroke-width="2.5" fill="none" stroke-linecap="round"/>
+        <!-- Heart symbol -->
+        <path d="M60,50 L55,45 Q50,40 50,35 Q50,28 55,28 Q60,28 60,35 M60,50 L65,45 Q70,40 70,35 Q70,28 65,28 Q60,28 60,35" fill="#4a7c2c" opacity="0.6"/>
+        <!-- Pulse line -->
+        <path d="M35,55 L45,55 L48,50 L52,60 L55,55 L85,55" stroke="#6dbf6d" stroke-width="2" fill="none"/>
+    </svg>`;
+    
+    const deadPalmIllustration = `<svg style="position:absolute;top:5px;right:5px;width:90px;height:90px;opacity:0.18;" viewBox="0 0 120 120">
+        <!-- Dried palm trunk -->
+        <path d="M60,90 Q56,70 58,50 Q54,30 60,10" stroke="#8B4513" stroke-width="3.5" fill="none" opacity="0.6"/>
+        <!-- Wilted leaves -->
+        <path d="M60,15 Q45,25 35,35 M60,15 Q75,25 85,35" stroke="#8B4513" stroke-width="2.5" fill="none" stroke-linecap="round" opacity="0.5"/>
+        <path d="M60,20 Q40,32 28,42 M60,20 Q80,32 92,42" stroke="#A0522D" stroke-width="2" fill="none" stroke-linecap="round" opacity="0.4"/>
+        <!-- X mark -->
+        <line x1="45" y1="45" x2="75" y2="75" stroke="#c62828" stroke-width="4" stroke-linecap="round"/>
+        <line x1="75" y1="45" x2="45" y2="75" stroke="#c62828" stroke-width="4" stroke-linecap="round"/>
+        <!-- Broken ground -->
+        <path d="M45,95 L75,95" stroke="#8B4513" stroke-width="2" opacity="0.3" stroke-dasharray="3,3"/>
+    </svg>`;
+    
+    const survivalChartIllustration = `<svg style="position:absolute;top:5px;right:5px;width:90px;height:90px;opacity:0.18;" viewBox="0 0 120 120">
+        <!-- Circular progress -->
+        <circle cx="60" cy="60" r="35" fill="none" stroke="#c8e6c9" stroke-width="8"/>
+        <circle cx="60" cy="60" r="35" fill="none" stroke="#2e7d32" stroke-width="8" stroke-dasharray="220" stroke-dashoffset="22" transform="rotate(-90 60 60)"/>
+        <!-- Percentage symbol -->
+        <circle cx="45" cy="45" r="6" fill="none" stroke="#2e7d32" stroke-width="2.5"/>
+        <circle cx="75" cy="75" r="6" fill="none" stroke="#2e7d32" stroke-width="2.5"/>
+        <line x1="40" y1="80" x2="80" y2="40" stroke="#2e7d32" stroke-width="3" stroke-linecap="round"/>
+        <!-- Checkmark in center -->
+        <path d="M50,60 L57,67 L72,50" stroke="#43a047" stroke-width="3" fill="none" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>`;
+    
+    const farmerIllustration = `<svg style="position:absolute;top:5px;right:5px;width:90px;height:90px;opacity:0.18;" viewBox="0 0 120 120">
+        <!-- Farmer figure -->
+        <circle cx="60" cy="25" r="10" fill="none" stroke="#d4af37" stroke-width="2.5"/>
+        <!-- Hat -->
+        <ellipse cx="60" cy="20" rx="16" ry="6" fill="none" stroke="#d4af37" stroke-width="2.5"/>
+        <path d="M44,20 L76,20" stroke="#d4af37" stroke-width="2"/>
+        <!-- Body -->
+        <path d="M60,35 L60,60" stroke="#d4af37" stroke-width="3.5"/>
+        <!-- Arms with tool -->
+        <path d="M60,42 L45,52 L42,65" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round"/>
+        <path d="M60,42 L75,50" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Shovel -->
+        <path d="M42,65 L42,85" stroke="#8B4513" stroke-width="2.5"/>
+        <path d="M38,85 L46,85 L42,92 Z" fill="#8B4513"/>
+        <!-- Legs -->
+        <path d="M60,60 L50,85 M60,60 L70,85" stroke="#d4af37" stroke-width="2.5" stroke-linecap="round"/>
+        <!-- Ground plants -->
+        <path d="M75,80 Q78,75 80,80 Q82,75 85,80" stroke="#4a7c2c" stroke-width="2" fill="none"/>
+    </svg>`;
+    
+    const varietyTreeIllustration = `<svg style="position:absolute;top:5px;right:5px;width:90px;height:90px;opacity:0.18;" viewBox="0 0 120 120">
+        <!-- Central trunk -->
+        <path d="M60,90 L60,45" stroke="#8B4513" stroke-width="3.5"/>
+        <!-- Main branches -->
+        <path d="M60,45 Q45,40 35,35 M60,45 Q75,40 85,35" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+        <path d="M60,55 Q48,52 40,50 M60,55 Q72,52 80,50" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+        <path d="M60,65 Q50,63 42,62 M60,65 Q70,63 78,62" stroke="#8B4513" stroke-width="2.5" fill="none"/>
+        <!-- Variety fruits/dates (7 different varieties) -->
+        <circle cx="35" cy="35" r="4" fill="#d4af37"/>
+        <circle cx="85" cy="35" r="4" fill="#c9a961"/>
+        <circle cx="40" cy="50" r="4" fill="#b8945f"/>
+        <circle cx="80" cy="50" r="4" fill="#d4af37"/>
+        <circle cx="42" cy="62" r="4" fill="#c9a961"/>
+        <circle cx="78" cy="62" r="4" fill="#b8945f"/>
+        <circle cx="60" cy="40" r="4" fill="#d4af37"/>
+        <!-- Leaves -->
+        <path d="M32,32 Q28,28 25,30 M38,32 Q42,28 45,30" stroke="#2d5016" stroke-width="1.5" fill="none"/>
+        <path d="M82,32 Q78,28 75,30 M88,32 Q92,28 95,30" stroke="#2d5016" stroke-width="1.5" fill="none"/>
+        <!-- Number 7 -->
+        <text x="55" y="80" font-family="Arial" font-size="20" font-weight="bold" fill="#4a7c2c">7</text>
+    </svg>`;
+    
+    const sketchCircle = palmTreeIllustration;
+    const sketchCheck = livingPalmIllustration;
+    const sketchX = deadPalmIllustration;
+    const sketchPercent = survivalChartIllustration;
+    const sketchStar = farmerIllustration;
+    const sketchArrow = varietyTreeIllustration;
     
     let html = `
         <div class="stats-grid">
             <div class="stat-card" style="position:relative;">${sketchCircle}<div class="stat-number">${totalOffshoots}</div><div class="stat-label">${t('stats.total')}</div></div>
             <div class="stat-card" style="position:relative;">${sketchCheck}<div class="stat-number">${aliveCount}</div><div class="stat-label">${t('stats.alive')}</div></div>
             <div class="stat-card" style="position:relative;">${sketchX}<div class="stat-number">${deadCount}</div><div class="stat-label">${t('stats.dead')}</div></div>
+            <div class="stat-card" style="position:relative;background:linear-gradient(135deg,#2e7d32 0%,#388e3c 25%,#43a047 50%,#66bb6a 75%,#81c784 100%);">${sketchPercent}<div class="stat-number">${survivalRate}%</div><div class="stat-label">${t('stats.survival')}</div></div>
             <div class="stat-card" style="position:relative;">${sketchStar}<div class="stat-number">${ALL_FARMERS.length}</div><div class="stat-label">${t('stats.farmers')}</div></div>
             <div class="stat-card" style="position:relative;">${sketchArrow}<div class="stat-number">7</div><div class="stat-label">${t('stats.varieties')}</div></div>
         </div>
