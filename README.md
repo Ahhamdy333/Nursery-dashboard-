@@ -1140,23 +1140,58 @@ body.ar .modal-close {
         font-size: 0.95em;
     }
     
-    /* Tables - make scrollable */
+    /* Tables - MOBILE CARD STYLE */
     table {
+        border: 0;
+    }
+    
+    table thead {
+        display: none;
+    }
+    
+    table tbody {
         display: block;
-        overflow-x: auto;
-        white-space: nowrap;
-        -webkit-overflow-scrolling: touch;
     }
     
-    thead, tbody, tr {
-        display: table;
-        width: 100%;
-        table-layout: fixed;
+    table tr {
+        display: block;
+        margin-bottom: 15px;
+        border: 2px solid #e0e0e0;
+        border-radius: 12px;
+        padding: 15px;
+        background: white;
+        box-shadow: 0 2px 8px rgba(0,0,0,0.1);
     }
     
-    th, td {
-        padding: 12px 10px;
-        font-size: 0.85em;
+    table tr:hover {
+        transform: none;
+        box-shadow: 0 4px 12px rgba(0,0,0,0.15);
+    }
+    
+    table td {
+        display: block;
+        text-align: left !important;
+        padding: 8px 0;
+        border: none;
+        font-size: 0.9em;
+    }
+    
+    table td:before {
+        content: attr(data-label);
+        font-weight: 700;
+        color: var(--primary-green);
+        display: inline-block;
+        width: 120px;
+        margin-right: 10px;
+    }
+    
+    body.ar table td {
+        text-align: right !important;
+    }
+    
+    body.ar table td:before {
+        margin-right: 0;
+        margin-left: 10px;
     }
     
     /* Info box */
@@ -1851,6 +1886,7 @@ function renderMap() {
 
 function renderDead() {
     const allDead = [...DEAD_OFFSHOOTS, ...localDeadOffshoots];
+    const headers = t('deadTableHeaders');
     let html = `
         <div style="text-align: center; margin-bottom: 30px;">
             <h2 style="color: var(--code-red); font-size: 2em; margin-bottom: 10px;">💔 ${t('tabs.dead')}</h2>
@@ -1860,31 +1896,37 @@ function renderDead() {
             </div>
         </div>
         <table style="border: 3px solid var(--code-red);"><thead style="background: linear-gradient(135deg, var(--code-red), #a01818);"><tr>`;
-    t('deadTableHeaders').forEach(h => html += `<th>${h}</th>`);
+    headers.forEach(h => html += `<th>${h}</th>`);
     html += `</tr></thead><tbody>`;
     allDead.forEach((item, index) => {
         const variety = currentLang === 'en' ? item.variety_en : item.variety_ar;
         const reason = currentLang === 'en' ? item.reason_en : item.reason_ar;
         const bgColor = index % 2 === 0 ? '#fff5f5' : 'white';
-        html += `<tr style="background: ${bgColor};"><td><strong>${variety}</strong></td><td style="color: var(--code-red); font-weight: 700;">${item.code}</td><td>${item.date}</td><td>${reason}</td></tr>`;
+        html += `<tr style="background: ${bgColor};">
+            <td data-label="${headers[0]}"><strong>${variety}</strong></td>
+            <td data-label="${headers[1]}" style="color: var(--code-red); font-weight: 700;">${item.code}</td>
+            <td data-label="${headers[2]}">${item.date}</td>
+            <td data-label="${headers[3]}">${reason}</td>
+        </tr>`;
     });
     html += `</tbody></table>`;
     document.getElementById('deadContent').innerHTML = html;
 }
 
 function renderFarmers() {
+    const headers = t('farmersTableHeaders');
     let html = `<h2 style="margin-bottom: 25px; color: var(--primary-green);">${t('tabs.farmers')} (${ALL_FARMERS.length})</h2><table><thead><tr>`;
-    t('farmersTableHeaders').forEach(h => html += `<th>${h}</th>`);
+    headers.forEach(h => html += `<th>${h}</th>`);
     html += `</tr></thead><tbody>`;
     ALL_FARMERS.forEach(farmer => {
         const codes = ALL_CODES.filter(c => c.farmerId === farmer.id);
         html += `<tr style="cursor: pointer;" onclick="showFarmerCodes(${farmer.id})">
-            <td>${farmer.name}</td>
-            <td>${farmer.gender || '-'}</td>
-            <td>${t('govs.' + (farmer.governorate === 'Kafr Elsheikh' ? 'KS' : 'BH'))}</td>
-            <td>${farmer.district}</td>
-            <td>${farmer.village}</td>
-            <td><strong>${codes.length}</strong></td>
+            <td data-label="${headers[0]}">${farmer.name}</td>
+            <td data-label="${headers[1]}">${farmer.gender || '-'}</td>
+            <td data-label="${headers[2]}">${t('govs.' + (farmer.governorate === 'Kafr Elsheikh' ? 'KS' : 'BH'))}</td>
+            <td data-label="${headers[3]}">${farmer.district}</td>
+            <td data-label="${headers[4]}">${farmer.village}</td>
+            <td data-label="${headers[5]}"><strong>${codes.length}</strong></td>
         </tr>`;
     });
     html += `</tbody></table>`;
